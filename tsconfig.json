@@ -2,46 +2,20 @@
     "compilerOptions": {
         "allowJs": true,
         "module": "ESNext",
-        "moduleResolution": "bundler",
+        "moduleResolution": "node",
         "jsx": "react-jsx",
         "strict": true,
         "isolatedModules": true,
-        "target": "ESNext",
+        "target": "ES2022",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "noEmit": false,
-        "noEmitOnError": false,
+        "noEmit": true,
         "skipLibCheck": true,
-        "noImplicitAny": false,
-        "suppressImplicitAnyIndexErrors": true,
-        "ignoreDeprecations": "5.0",
-        "noErrorTruncation": false,
-        "noUnusedLocals": false,
-        "noUnusedParameters": false,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
-        "strictPropertyInitialization": false,
-        "noImplicitReturns": false,
-        "noFallthroughCasesInSwitch": false,
-        "allowUnreachableCode": true,
-        "allowUnusedLabels": true,
+        "resolveJsonModule": true,
         "paths": {
-            "@/*": [
-                "./resources/js/*"
-            ],
-            "ziggy-js": [
-                "./vendor/tightenco/ziggy"
-            ],
+            "@/*": ["./resources/js/*"],
+            "ziggy-js": ["./vendor/tightenco/ziggy"]
         }
     },
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
-    ],
-    "include": [
-        "resources/js/**/*.ts",
-        "resources/js/**/*.tsx",
-        "resources/js/**/*.d.ts"
-    ]
+    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts", "resources/js/**/*.jsx"]
 }
