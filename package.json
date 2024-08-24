@@ -33,7 +33,11 @@
     },
     "dependencies": {
         "@radix-ui/react-dropdown-menu": "^2.1.1",
+        "@radix-ui/react-label": "^2.1.0",
         "@radix-ui/react-slot": "^1.1.0",
+        "clsx": "^2.1.1",
+        "hugeicons-react": "^0.3.0",
+        "tailwind-merge": "^2.5.2",
         "tailwind-variants": "^0.2.1"
     }
 }
