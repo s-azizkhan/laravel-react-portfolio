@@ -34,7 +34,7 @@ export default function Skills() {
         {
             title: "Tools",
             icon: <FaTools className="text-2xl mr-2" />,
-            items: ["Git", "GitHub", "Figma", "Postman"],
+            items: ["Git", "GitHub", "Figma", "Postman", "VSCode"],
         },
         {
             title: "Database",
@@ -44,10 +44,7 @@ export default function Skills() {
     ];
 
     return (
-        <section
-            id="skills"
-            className="w-full py-12 md:py-24 lg:py-32 rounded-t-lg"
-        >
+        <section id="skills" className="w-full md:py-24 lg:py-32 rounded-t-lg">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center">
                     <div className="space-y-2">
@@ -55,8 +52,8 @@ export default function Skills() {
                             Skills
                         </h2>
                         <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                            Check out some of my recent projects that showcase
-                            my skills and expertise.
+                            Here are some skills that I have worked on and
+                            developed using them.
                         </p>
                     </div>
                 </div>

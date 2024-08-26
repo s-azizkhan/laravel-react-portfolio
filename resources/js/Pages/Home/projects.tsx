@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { Badge } from "@/Components/ui/badge";
 import {
     Card,
@@ -76,60 +76,14 @@ const ProjectCard = (project: ProjectInterface) => {
 };
 
 export default function Projects() {
-    const projects: ProjectInterface[] = [
-        {
-            title: "Project 1",
-            description:
-                "A web application that helps users manage their tasks and projects.",
-            image: "/assets/1.png",
-            previewLink: "/",
-            githubLink: "/",
-            techStack: [
-                "React",
-                "Next.js",
-                "Node.js",
-                "MongoDB",
-                "Express.js",
-                "AWS",
-            ],
-        },
-        {
-            title: "Project 2",
-            description:
-                "A web application that helps users manage their tasks and projects.",
-            image: "/assets/2.jpg",
-            githubLink: "/",
-            techStack: ["Vue", "Nuxt.js", "Firebase"],
-        },
-        {
-            title: "Project 3",
-            description:
-                "A web application that helps users manage their tasks and projects.",
-            image: "/assets/3.jpg",
-            previewLink: "/",
-            techStack: ["Angular", "NestJS", "MongoDB"],
-        },
-        {
-            title: "Project 4",
-            description:
-                "A web application that helps users manage their tasks and projects.",
-            image: "/assets/aziz-avatar.jpeg",
-            techStack: ["Svelte", "Sapper", "GraphQL"],
-        },
-        {
-            title: "Project 5",
-            description:
-                "A web application that helps users manage their tasks and projects.",
-            image: "/assets/placeholder.svg",
-            techStack: ["Svelte", "Sapper", "GraphQL"],
-        },
-    ];
-
+    //  access projects from page props
+    const projects: ProjectInterface[] = usePage().props
+        .projects as ProjectInterface[];
     return (
         <>
             <section
                 id="projects"
-                className="w-full py-12 md:py-24 lg:py-32 bg-muted rounded-t-lg"
+                className="w-full py-12 md:py-24 lg:py-32 rounded-t-lg"
             >
                 <div className="container px-4 md:px-6">
                     <div className="flex flex-col items-center justify-center space-y-4 text-center">
