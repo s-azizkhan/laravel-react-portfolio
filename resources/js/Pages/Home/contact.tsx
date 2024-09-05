@@ -1,74 +1,127 @@
+import { useState } from "react";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Textarea } from "@/Components/ui/textarea";
 import { Label } from "@radix-ui/react-label";
-import { FaPlaneDeparture } from "react-icons/fa";
+import { FaPlaneDeparture, FaUser, FaEnvelope } from "react-icons/fa";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+import MaxWidthWrapper from "@/Components/shared/max-width-wrapper";
 
 export default function Contact() {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        toast.success("Message sent successfully");
+        toast.success("Message sent successfully", {
+            description: "Thank you for reaching out!",
+            duration: 5000,
+        });
+        setName("");
+        setEmail("");
+        setMessage("");
     };
+
     return (
-        <>
-            <section
-                id="contact"
-                className="w-full py-16 md:py-24 lg:py-32 rounded-t-lg"
-            >
-                <div className="container mx-auto px-6 md:px-8">
+        <MaxWidthWrapper>
+            <section id="contact" className="w-full pb-8 md:py-24 lg:py-8">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="container mx-auto px-6 md:px-8"
+                >
                     <div className="flex flex-col items-center justify-center space-y-6 text-center">
-                        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-                            Get in touch with me
+                        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r  from-purple-400 to-blue-500">
+                            Let's Connect
                         </h2>
-                        <p className="max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl">
+                        <p className="max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl text-gray-300">
                             Have a project in mind or just want to say hello?
-                            Fill out the form below, and I'll get back to you as
-                            soon as possible.
+                            I'd love to hear from you!
                         </p>
                     </div>
 
-                    <div className="mt-12 flex justify-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="mt-12 flex justify-center"
+                    >
                         <form
-                            className="w-full max-w-lg bg-background p-8 rounded-lg shadow-lg space-y-6"
+                            className="w-full max-w-lg bg-white/5 backdrop-blur-lg p-4 lg:p-8 rounded-2xl shadow-2xl space-y-6 border border-white/10"
                             onSubmit={onSubmit}
                         >
                             <div className="space-y-2">
                                 <Label
+                                    htmlFor="name"
+                                    className="block text-sm font-medium text-gray-300"
+                                >
+                                    Name
+                                </Label>
+                                <div className="relative">
+                                    <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                    <Input
+                                        type="text"
+                                        id="name"
+                                        value={name}
+                                        onChange={(e) =>
+                                            setName(e.target.value)
+                                        }
+                                        placeholder="Your Name"
+                                        className="w-full pl-10 pr-4 py-2 bg-white/10 border-white/20 rounded-md shadow-sm focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label
                                     htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-sm font-medium text-gray-300"
                                 >
                                     Email
                                 </Label>
-                                <Input
-                                    type="email"
-                                    id="email"
-                                    placeholder="Email"
-                                    className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                />
+                                <div className="relative">
+                                    <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                    <Input
+                                        type="email"
+                                        id="email"
+                                        value={email}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
+                                        placeholder="your@email.com"
+                                        className="w-full pl-10 pr-4 py-2 bg-white/10 border-white/20 rounded-md shadow-sm focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white"
+                                        required
+                                    />
+                                </div>
                             </div>
                             <div className="space-y-2">
                                 <Label
                                     htmlFor="message"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-sm font-medium text-gray-300"
                                 >
                                     Message
                                 </Label>
                                 <Textarea
                                     id="message"
-                                    placeholder="Your message"
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    placeholder="Your message here..."
                                     rows={4}
-                                    className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    className="w-full px-4 py-2 bg-white/10 border-white/20 rounded-md shadow-sm focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white"
+                                    required
                                 />
                             </div>
-                            <Button className="w-full">
+                            <Button className="w-full bg-gradient-to-r  from-purple-400 to-blue-500 hover:bg-gradient-to-l text-white font-semibold py-2 px-4 rounded-xl transition-all duration-300 transform hover:scale-105">
                                 Send Message
-                                <FaPlaneDeparture className="ml-2" />
+                                <FaPlaneDeparture className="ml-2 animate-pulse" />
                             </Button>
                         </form>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </section>
-        </>
+        </MaxWidthWrapper>
     );
 }

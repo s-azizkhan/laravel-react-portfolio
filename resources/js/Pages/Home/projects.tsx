@@ -7,113 +7,132 @@ import {
     CardHeader,
 } from "@/Components/ui/card";
 import { EyeIcon, GithubIcon } from "hugeicons-react";
+import { motion } from "framer-motion";
+import MaxWidthWrapper from "@/Components/shared/max-width-wrapper";
+import { Button } from "@/Components/ui/button";
 
 interface ProjectInterface {
     title: string;
     description: string;
     image: string;
+    time?: string;
     previewLink?: string;
     githubLink?: string;
-    techStack?: string[]; // New property for tech stack
+    techStack?: string[];
 }
 
 const ProjectCard = (project: ProjectInterface) => {
     return (
-        <Card className="flex flex-col justify-between h-fit">
-            <CardHeader>
-                {project.image && (
-                    <img
-                        src={project.image}
-                        width="550"
-                        height="310"
-                        alt={project.title}
-                        className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-                    />
-                )}
-            </CardHeader>
-            <CardContent className="flex-grow">
-                <div className="space-y-2">
-                    <h3 className="text-xl font-bold">{project.title}</h3>
-                    <p className="text-muted-foreground">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
+            <Card className="flex flex-col justify-between h-full backdrop-blur-md bg-gradient-to-t from-purple-400/10 to-blue-500/40 border-white/20 border shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden">
+                <CardHeader className="p-0 relative">
+                    {project.image && (
+                        <img
+                            src={project.image}
+                            width="550"
+                            height="310"
+                            alt={project.title}
+                            className="w-full aspect-video object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70 flex flex-col items-center justify-end p-4">
+                        <h3 className="text-2xl font-bold text-white text-center px-4 mb-2">
+                            {project.title}
+                        </h3>
+                        <span className="text-sm text-white/80">
+                            {project.time || "Ongoing"}
+                        </span>
+                    </div>
+                </CardHeader>
+                <CardContent className="flex-grow p-6">
+                    <p className="text-gray-300 text-sm leading-relaxed mb-4">
                         {project.description}
                     </p>
-                </div>
-                {project.techStack && (
-                    <div className="tech-stack">
-                        <h4 className="text-xl font-bold mt-4">Tech Stack</h4>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                            {project.techStack.map((tech, index) => (
-                                <Badge key={index}>{tech}</Badge>
-                            ))}
+                    {project.techStack && (
+                        <div className="mt-4">
+                            <h4 className="text-lg font-semibold mb-2 text-primary">
+                                Tech Stack
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                                {project.techStack.map((tech, index) => (
+                                    <Badge
+                                        key={index}
+                                        className="bg-primary/20 text-primary hover:bg-primary/30 transition-colors duration-200"
+                                    >
+                                        {tech}
+                                    </Badge>
+                                ))}
+                            </div>
                         </div>
+                    )}
+                </CardContent>
+                <CardFooter className="p-6 pt-0">
+                    <div className="flex gap-3 w-full">
+                        {project.previewLink && (
+                            <a target="_blank" href={project.previewLink}>
+                                <Button
+                                    variant="outline"
+                                    className="flex-1 inline-flex items-center justify-center w-full rounded-xl"
+                                >
+                                    Live Demo
+                                    <EyeIcon className="ml-2 w-5 h-5" />
+                                </Button>
+                            </a>
+                        )}
+                        {project.githubLink && (
+                            <a target="_blank" href={project.githubLink}>
+                                <Button className="flex-1 inline-flex items-center justify-center w-full rounded-xl">
+                                    GitHub
+                                    <GithubIcon className="ml-2 w-5 h-5" />
+                                </Button>
+                            </a>
+                        )}
                     </div>
-                )}
-            </CardContent>
-            <CardFooter>
-                <div className="flex gap-2">
-                    {project.previewLink && (
-                        <a
-                            target="_blank"
-                            href={project.previewLink}
-                            className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                        >
-                            Live Demo
-                            <EyeIcon className="ml-2 w-5 h-5" />
-                        </a>
-                    )}
-                    {project.githubLink && (
-                        <a
-                            target="_blank"
-                            href={project.githubLink}
-                            className="inline-flex h-8 items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                        >
-                            GitHub
-                            <GithubIcon className="ml-2 w-5 h-5" />
-                        </a>
-                    )}
-                </div>
-            </CardFooter>
-        </Card>
+                </CardFooter>
+            </Card>
+        </motion.div>
     );
 };
 
 export default function Projects() {
-    //  access projects from page props
     const projects: ProjectInterface[] = usePage().props
         .projects as ProjectInterface[];
+
     return (
-        <>
+        <MaxWidthWrapper>
             <section
                 id="projects"
-                className="w-full py-12 md:py-24 lg:py-32 rounded-t-lg"
+                className="w-full py-16 md:py-24 lg:py-20 bg-gradient-to-b from-background to-background/50"
             >
-                <div className="container px-4 md:px-6">
-                    <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                        <div className="space-y-2">
-                            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                                Featured Projects
-                            </h2>
-                            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                                Check out some of my recent projects that
-                                showcase my skills and expertise.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+                <div className="container px-4 md:px-6 mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
+                    >
+                        <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-violet-600">
+                            Featured Projects
+                        </h2>
+                        <p className="max-w-[900px] text-muted-foreground text-lg md:text-xl/relaxed">
+                            Explore my recent projects that showcase my skills
+                            and expertise in creating innovative solutions.
+                        </p>
+                    </motion.div>
+                    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {projects.map((project, index) => (
                             <ProjectCard
                                 key={`${project.title}-${index}`}
-                                title={project.title}
-                                description={project.description}
-                                image={project.image}
-                                previewLink={project.previewLink}
-                                githubLink={project.githubLink}
-                                techStack={project.techStack}
+                                {...project}
                             />
                         ))}
                     </div>
                 </div>
             </section>
-        </>
+        </MaxWidthWrapper>
     );
 }
