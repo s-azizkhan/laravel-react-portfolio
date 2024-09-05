@@ -1,11 +1,10 @@
 import DotPattern from "@/Components/magic-ui/dot-pattern";
 import { FlipWords } from "@/Components/ui/flip-words";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/Components/ui/button";
-import { Link } from "@inertiajs/react";
-import { FaArrowRight, FaEnvelope } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { FaArrowRight } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import { Github01Icon, Linkedin01Icon } from "hugeicons-react";
 
 export default function Hero() {
@@ -30,9 +29,13 @@ export default function Hero() {
     };
 
     const [isVisible, setIsVisible] = useState(false);
+    const [showCTA, setShowCTA] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsVisible(true), 500);
+        const timer = setTimeout(() => {
+            setIsVisible(true);
+            setShowCTA(true);
+        }, 500);
         return () => clearTimeout(timer);
     }, []);
 
@@ -40,7 +43,7 @@ export default function Hero() {
         <>
             <section
                 id="hero"
-                className="pb-20 md:py-32 mx-4 rounded-t-2xl relative overflow-hidden"
+                className="pb-20 md:pt-32 mx-4 rounded-t-2xl relative overflow-hidden"
             >
                 <div className="container px-4 md:px-6 max-w-7xl mx-auto relative z-10">
                     <div className="grid gap-12 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_600px] items-center">
@@ -129,31 +132,41 @@ export default function Hero() {
                                 </div>
                                 <div className="flex flex-col space-y-1">
                                     <p className="max-w-[600px] text-gray-300 text-xl md:text-2xl leading-relaxed">
-                                        {`I'm a passionate software developer with expertise in building cutting-edge web applications and mobile apps. I thrive on creating innovative solutions that solve real-world problems and push the boundaries of technology.`}
+                                        Transforming ideas into powerful, scalable solutions. Let's build something extraordinary together.
                                     </p>
                                 </div>
 
-                                <div className="flex flex-wrap gap-6 mt-8">
-                                    <a href="#projects">
-                                        <Button
-                                            size="lg"
-                                            className="transition-all duration-300 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold py-3 px-8 shadow-lg hover:shadow-xl"
+                                <AnimatePresence>
+                                    {showCTA && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -20 }}
+                                            transition={{ duration: 0.5 }}
+                                            className="flex flex-wrap gap-6 mt-8"
                                         >
-                                            View Projects
-                                            <FaArrowRight className="ml-2" />
-                                        </Button>
-                                    </a>
-                                    <a href="#contact">
-                                        <Button
-                                            size="lg"
-                                            variant="outline"
-                                            className="rounded-xl border-2 border-gray-300 hover:border-white text-gray-300 hover:text-white font-semibold py-3 px-8 transition-all duration-300"
-                                        >
-                                            Contact Me
-                                            <FaEnvelope className="ml-2" />
-                                        </Button>
-                                    </a>
-                                </div>
+                                            <a href="#contact">
+                                                <Button
+                                                    size="lg"
+                                                    className="transition-all duration-300 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold py-3 px-8 shadow-lg hover:shadow-xl"
+                                                >
+                                                    Let's Work Together
+                                                    <FaArrowRight className="ml-2" />
+                                                </Button>
+                                            </a>
+                                            <a href="#projects">
+                                                <Button
+                                                    size="lg"
+                                                    variant="outline"
+                                                    className="rounded-xl border-2 border-gray-300 hover:border-white text-gray-300 hover:text-white font-semibold py-3 px-8 transition-all duration-300"
+                                                >
+                                                    View My Work
+                                                    <FaArrowRight className="ml-2" />
+                                                </Button>
+                                            </a>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         </motion.div>
                     </div>

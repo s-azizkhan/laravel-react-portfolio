@@ -4,6 +4,7 @@ import Contact from "./contact";
 import Hero from "./hero";
 import { Navbar } from "./_components/Navbar";
 import { Footer } from "./_components/Footer";
+import AboutMe from "./about-me";
 
 export function LandingComponent() {
     return (
@@ -13,9 +14,12 @@ export function LandingComponent() {
             <main className="flex-1 mt-20 lg:mt-10">
                 <Hero />
 
-                <Projects />
+                <AboutMe />
+
 
                 <Skills />
+
+                <Projects />
 
                 <Contact />
             </main>

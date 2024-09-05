@@ -3,7 +3,12 @@ import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Textarea } from "@/Components/ui/textarea";
 import { Label } from "@radix-ui/react-label";
-import { FaPlaneDeparture, FaUser, FaEnvelope } from "react-icons/fa";
+import {
+    FaPlaneDeparture,
+    FaUser,
+    FaEnvelope,
+    FaCommentAlt,
+} from "react-icons/fa";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import MaxWidthWrapper from "@/Components/shared/max-width-wrapper";
@@ -25,32 +30,33 @@ export default function Contact() {
     };
 
     return (
-        <MaxWidthWrapper>
-            <section id="contact" className="w-full pb-8 md:py-24 lg:py-8">
+        <MaxWidthWrapper className="mx-0 px-0">
+            <section id="contact" className="w-full pb-16">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="container mx-auto px-6 md:px-8"
+                    transition={{ duration: 0.8 }}
+                    className="container mx-auto px-4 md:px-8"
                 >
-                    <div className="flex flex-col items-center justify-center space-y-6 text-center">
-                        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r  from-purple-400 to-blue-500">
-                            Let's Connect
+                    <div className="flex flex-col items-center justify-center space-y-2 text-center">
+                        <h2 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl bg-clip-text py-4 text-transparent bg-gradient-to-r from-purple-400 via-violet-500 to-blue-500">
+                            Let's Create Something Amazing
                         </h2>
-                        <p className="max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl text-gray-300">
-                            Have a project in mind or just want to say hello?
-                            I'd love to hear from you!
+                        <p className="max-w-2xl mx-auto text-xl sm:text-2xl text-gray-300">
+                            Ready to turn your ideas into reality? Drop me a
+                            message, and let's start building your dream project
+                            together!
                         </p>
                     </div>
 
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="mt-12 flex justify-center"
+                        transition={{ duration: 0.7, delay: 0.3 }}
+                        className="mt-16 flex justify-center"
                     >
                         <form
-                            className="w-full max-w-lg bg-white/5 backdrop-blur-lg p-4 lg:p-8 rounded-2xl shadow-2xl space-y-6 border border-white/10"
+                            className="w-full max-w-xl bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-2xl space-y-8 border border-white/20"
                             onSubmit={onSubmit}
                         >
                             <div className="space-y-2">
@@ -114,10 +120,14 @@ export default function Contact() {
                                     required
                                 />
                             </div>
-                            <Button className="w-full bg-gradient-to-r  from-purple-400 to-blue-500 hover:bg-gradient-to-l text-white font-semibold py-2 px-4 rounded-xl transition-all duration-300 transform hover:scale-105">
+                            <Button className="w-full bg-gradient-to-r from-purple-500 via-violet-500 h-12 to-blue-500 hover:bg-gradient-to-l text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                                 Send Message
                                 <FaPlaneDeparture className="ml-2 animate-pulse" />
                             </Button>
+                            <p className="text-center text-sm text-gray-400 mt-4">
+                                Your information is secure and will never be
+                                shared with third parties.
+                            </p>
                         </form>
                     </motion.div>
                 </motion.div>
