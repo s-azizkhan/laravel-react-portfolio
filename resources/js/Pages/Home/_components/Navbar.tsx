@@ -9,7 +9,7 @@ export function Navbar() {
     useEffect(() => {
         const handleScroll = () => {
             const sections = ["hero", "projects", "skills", "contact"];
-            const currentSection = sections.find(section => {
+            const currentSection = sections.find((section) => {
                 const element = document.getElementById(section);
                 if (element) {
                     const rect = element.getBoundingClientRect();
@@ -31,13 +31,18 @@ export function Navbar() {
                     className="flex items-center justify-between h-16 w-full max-w-4xl px-8 mx-5 rounded-full border-2 border-white/10
                     backdrop-blur-md shadow-xl bg-slate-950/55 transition duration-300 ease-in-out"
                 >
-                    <Link href="#hero" className="flex items-center justify-center group">
+                    <Link
+                        href="/"
+                        className="flex items-center justify-center group"
+                    >
                         <CodeIcon className="h-6 w-6 group-hover:text-primary transition-colors duration-200" />
-                        <span className="ml-2 font-semibold text-sm group-hover:text-primary transition-colors duration-200">S.Aziz Khan</span>
+                        <span className="ml-2 font-semibold text-sm group-hover:text-primary transition-colors duration-200">
+                            S.Aziz Khan
+                        </span>
                     </Link>
                     <nav className="hidden md:flex gap-6 items-center">
                         {["projects", "skills", "contact"].map((item) => (
-                            <Link
+                            <a
                                 key={item}
                                 href={`#${item}`}
                                 className={`text-sm font-medium transition duration-200 ${
@@ -47,7 +52,7 @@ export function Navbar() {
                                 }`}
                             >
                                 {item.charAt(0).toUpperCase() + item.slice(1)}
-                            </Link>
+                            </a>
                         ))}
                     </nav>
                     <button
