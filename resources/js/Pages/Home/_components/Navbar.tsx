@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
-import { CodeIcon, Menu01Icon } from "hugeicons-react";
+import { CodeIcon, Menu01Icon, XingIcon } from "hugeicons-react";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,7 +9,7 @@ export function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            const sections = ["hero", "projects", "skills", "contact"];
+            const sections = ["hero", "about", "projects", "skills", "contact"];
             const currentSection = sections.find((section) => {
                 const element = document.getElementById(section);
                 if (element) {
@@ -24,25 +25,46 @@ export function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const menuItems = ["about", "skills", "projects", "contact"];
+
     return (
         <>
-            <div className="flex justify-center items-center w-full fixed top-0 left-0 right-0 z-50 my-4">
+            <motion.div
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ type: "spring", stiffness: 100 }}
+                className="flex justify-center items-center w-full fixed top-0 left-0 right-0 z-50 my-4"
+            >
                 <header
                     className="flex items-center justify-between h-16 w-full max-w-4xl px-8 mx-5 rounded-full border-2 border-white/10
-                    backdrop-blur-md shadow-xl bg-slate-950/55 transition duration-300 ease-in-out"
+                    backdrop-blur-md shadow-xl bg-slate-950/55 transition duration-300 ease-in-out hover:bg-slate-900/70"
                 >
                     <Link
                         href="/"
                         className="flex items-center justify-center group"
                     >
-                        <CodeIcon className="h-6 w-6 group-hover:text-primary transition-colors duration-200" />
+                        <motion.div
+                            whileHover={{ rotate: 360 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <CodeIcon className="h-6 w-6 group-hover:text-primary transition-colors duration-200" />
+                        </motion.div>
                         <span className="ml-2 font-semibold text-sm group-hover:text-primary transition-colors duration-200">
                             S.Aziz Khan
                         </span>
                     </Link>
+
+                    {/* Contact button for mobile */}
+                    <a
+                        href="#contact"
+                        className="md:hidden bg-black border border-primary p-2 rounded-xl text-sm font-medium text-primary hover:underline underline-offset-4 transition duration-200"
+                    >
+                        Contact
+                    </a>
+
                     <nav className="hidden md:flex gap-6 items-center">
-                        {["projects", "skills", "contact"].map((item) => (
-                            <a
+                        {menuItems.map((item) => (
+                            <motion.a
                                 key={item}
                                 href={`#${item}`}
                                 className={`text-sm font-medium transition duration-200 ${
@@ -50,36 +72,59 @@ export function Navbar() {
                                         ? "text-primary underline underline-offset-4"
                                         : "hover:text-primary hover:underline underline-offset-4"
                                 }`}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
                             >
                                 {item.charAt(0).toUpperCase() + item.slice(1)}
-                            </a>
+                            </motion.a>
                         ))}
                     </nav>
-                    <button
+                    <motion.button
                         className="md:hidden"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         aria-label="Toggle menu"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
                     >
-                        <Menu01Icon className="h-6 w-6" />
-                    </button>
+                        {isMenuOpen ? (
+                            <XingIcon className="h-6 w-6" />
+                        ) : (
+                            <Menu01Icon className="h-6 w-6" />
+                        )}
+                    </motion.button>
                 </header>
-            </div>
-            {isMenuOpen && (
-                <div className="fixed inset-0 z-40 bg-slate-950/90 backdrop-blur-sm md:hidden">
-                    <nav className="flex flex-col items-center justify-center h-full space-y-8">
-                        {["projects", "skills", "contact"].map((item) => (
-                            <Link
-                                key={item}
-                                href={`#${item}`}
-                                className="text-xl font-medium hover:text-primary transition duration-200"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                {item.charAt(0).toUpperCase() + item.slice(1)}
-                            </Link>
-                        ))}
-                    </nav>
-                </div>
-            )}
+            </motion.div>
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="fixed inset-0 z-40 bg-slate-950/90 backdrop-blur-sm md:hidden"
+                    >
+                        <nav className="flex flex-col items-center justify-center h-full space-y-8">
+                            {["projects", "skills"].map((item, index) => (
+                                <motion.div
+                                    key={item}
+                                    initial={{ y: 20, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: index * 0.1 }}
+                                >
+                                    <Link
+                                        href={`#${item}`}
+                                        className="text-xl font-medium hover:text-primary transition duration-200"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        {item.charAt(0).toUpperCase() +
+                                            item.slice(1)}
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </nav>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 }

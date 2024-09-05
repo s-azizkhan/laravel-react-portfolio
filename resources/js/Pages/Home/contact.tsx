@@ -30,7 +30,7 @@ export default function Contact() {
     };
 
     return (
-        <MaxWidthWrapper className="mx-0 px-0">
+        <MaxWidthWrapper className="px-0">
             <section id="contact" className="w-full pb-16">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
