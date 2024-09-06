@@ -102,7 +102,7 @@ export default function Hero() {
                                 <a href="#contact" className="cursor-pointer">
                                     <div className="mt-6 text-center">
                                         <span className="px-4 py-2 bg-green-500/20 rounded-full text-sm text-white font-medium">
-                                            Available for freelance work
+                                            Available for work
                                         </span>
                                     </div>
                                 </a>
